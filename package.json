@@ -1,0 +1,20 @@
+{
+  "name": "backend-products-and-orders",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ElzioLima/Backend-Products-and-Orders.git"
+  },
+  "keywords": [],
+  "author": "https://linkedin.com/in/elzio-lima",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ElzioLima/Backend-Products-and-Orders/issues"
+  },
+  "homepage": "https://github.com/ElzioLima/Backend-Products-and-Orders#readme"
+}
