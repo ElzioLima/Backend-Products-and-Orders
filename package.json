@@ -36,6 +36,7 @@
     "migration:create": "npx typeorm migration:create -n ",
     "migration:run": "npm run typeorm migration:run",
     "migration:revert": "npm run typeorm migration:revert",
+    "reset": "npm run migration:run",
     "seed:create": "npx typeorm migration:create -c seed -n",
     "seed:run": "npm run typeorm migration:run -c seed",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
