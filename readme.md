@@ -14,8 +14,8 @@ An API for a simple Social Media, where users can public posts and see what othe
 
 * Node.JS
 * Express.JS
-* Knex.JS
-* MySQL
+* TypeORM
+* Postgres
 
 <br /><br />
 
