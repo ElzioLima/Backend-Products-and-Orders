@@ -30,7 +30,7 @@ An API for a simple Social Media, where users can public posts and see what othe
 > ## Usage
 
 * npm install --save-dev
-* npm run migration:run
+* npm run reset
 * npm run dev
 
 <br /><br />
