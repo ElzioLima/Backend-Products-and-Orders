@@ -21,7 +21,7 @@ An API for a simple Social Media, where users can public posts and see what othe
 
 > ## Database configuration
 
-* Install postgres version 8.0
+* Install postgres
 * create database dev_database
 * Change database connection credentials at ormconfig.js
 
