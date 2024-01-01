@@ -4,8 +4,8 @@ import { ValidationBuilder as Builder, Validator } from '@/application/validatio
 import { UpdateOrder } from '@/domain/use-cases'
 import { Product } from '@/domain/entities'
 
-type HttpRequest = { id: number, products: Product[] }
-type Model = undefined | { id: number, totalPrice: number, products: Product[] }
+type HttpRequest = { id: string, products: Product[] }
+type Model = undefined | { id: string, totalPrice: number, products: Product[] }
 
 export class UpdateOrderController extends Controller {
   constructor (private readonly createOrder: UpdateOrder) {

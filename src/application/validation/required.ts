@@ -40,7 +40,7 @@ export class RequiredNumber extends Required {
   }
 
   override validate (): Error | undefined {
-    if (super.validate() !== undefined || this.value === NaN) {
+    if (super.validate() !== undefined || Number.isNaN(this.value)) {
       return new RequiredFieldError(this.fieldName)
     }
   }
@@ -55,7 +55,6 @@ export class RequiredNumberArray extends Required {
   }
 
   override validate (): Error | undefined {
-    console.log('*******REQUIRED*******')
     if (super.validate() !== undefined || !this.validator.numberArrayValidate({ field: this.value })) {
       return new RequiredFieldError(this.fieldName)
     }

@@ -4,7 +4,7 @@ import { ValidationBuilder as Builder, Validator } from '@/application/validatio
 import { ListOrder } from '@/domain/use-cases'
 import { Product } from '@/domain/entities'
 
-type Model = undefined | Array<{ id: number, totalPrice: number, products: Product[] }>
+type Model = undefined | Array<{ id: string, totalPrice: number, products: Product[] }>
 
 export class ListOrderController extends Controller {
   constructor (private readonly createOrder: ListOrder) {

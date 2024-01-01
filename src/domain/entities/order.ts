@@ -1,8 +1,8 @@
 type OrderData = {
-  id: number
+  id: string
   totalPrice: number
   products: Array<{
-    id: number
+    id: string
     name?: string
     price?: number
     category?: string
@@ -11,10 +11,10 @@ type OrderData = {
 }
 
 export class Order {
-  id: number
+  id: string
   totalPrice: number
   products: Array<{
-    id: number
+    id: string
     name?: string
     price?: number
     category?: string

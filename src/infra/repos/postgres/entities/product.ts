@@ -4,7 +4,7 @@ import { PgOrder } from './order'
 @Entity({ name: 'products' })
 export class PgProduct {
   @PrimaryGeneratedColumn('uuid')
-  id!: number
+  id!: string
 
   @Column()
   name!: string
@@ -21,6 +21,8 @@ export class PgProduct {
   @ManyToMany(() => PgOrder)
   @JoinTable({
     name: "orders_products",
-    })
-  products!: PgOrder[]
+    joinColumn: { name: "product_id", referencedColumnName: "id" },
+    inverseJoinColumn: { name: "order_id", referencedColumnName: "id" }
+  })
+  orders!: PgOrder[]
 }

@@ -2,8 +2,8 @@ import { DBDeleteOrder } from '@/domain/contracts/repos'
 import { Order, Product } from '@/domain/entities'
 
 type Setup = (orderRepo: DBDeleteOrder) => DeleteOrder
-type Input = { id: number }
-type Output = undefined | { id: number, totalPrice: number, products: Product[] }
+type Input = { id: string }
+type Output = undefined | { id: string, totalPrice: number, products: Product[] }
 export type DeleteOrder = (input: Input) => Promise<Output>
 
 export const setupDeleteOrder: Setup = (orderRepo) => async ({ id }) => {

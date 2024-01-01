@@ -9,7 +9,7 @@ export namespace DBCreateProduct {
     category: string
   }
   export type Output = undefined | {
-    id: number
+    id: string
     name: string
     price: number
     category: string
@@ -22,13 +22,13 @@ export interface DBUpdateProduct {
 
 export namespace DBUpdateProduct {
   export type Input = {
-    id: number
+    id: string
     name: string
     price: number
     category: string
   }
   export type Output = undefined | {
-    id: number
+    id: string
     name: string
     price: number
     category: string
@@ -41,7 +41,7 @@ export interface DBListProduct {
 
 export namespace DBListProduct {
   export type Output = undefined | Array<{
-    id: number
+    id: string
     name: string
     price: number
     category: string
@@ -54,10 +54,10 @@ export interface DBListOneProduct {
 
 export namespace DBListOneProduct {
   export type Input = {
-    id: number
+    id: string
   }
   export type Output = undefined | {
-    id: number
+    id: string
     name: string
     price: number
     category: string
@@ -70,10 +70,10 @@ export interface DBDeleteProduct {
 
 export namespace DBDeleteProduct {
   export type Input = {
-    id: number
+    id: string
   }
   export type Output = undefined | {
-    id: number
+    id: string
     name: string
     price: number
     category: string

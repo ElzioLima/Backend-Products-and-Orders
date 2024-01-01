@@ -4,7 +4,7 @@ import { Order } from '@/domain/entities'
 type Setup = (orderRepo: DBCreateOrder) => CreateOrder
 type Input = {
   products: Array<{
-    id: number
+    id: string
     name?: string
     price?: number
     category?: string
@@ -12,10 +12,10 @@ type Input = {
   }>
 }
 type Output = undefined | {
-  id: number
+  id: string
   totalPrice: number
   products: Array<{
-    id: number
+    id: string
     name?: string
     price?: number
     category?: string

@@ -17,7 +17,6 @@ export class ValidationBuilder {
     } else if (typeof this.value === 'number') {
       this.validators.push(new RequiredNumber(this.value, this.fieldName))
     } else if (this.value instanceof Array && this.value.every(item => typeof item === 'number')) {
-      console.log(JSON.stringify(this.value))
       this.validators.push(new RequiredNumberArray(this.value, this.fieldName))
     } else {
       this.validators.push(new Required(this.value, this.fieldName))

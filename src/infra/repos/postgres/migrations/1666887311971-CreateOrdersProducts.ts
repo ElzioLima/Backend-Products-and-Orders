@@ -30,10 +30,10 @@ export class CreateOrdersProducts1666887311971 implements MigrationInterface {
           }
         ]
       })
-    )
+    ), true, true
   }
 
   public async down (queryRunner: QueryRunner): Promise<void> {
-    queryRunner.dropTable('orders_products')
+    await queryRunner.dropTable('orders_products', true, true)
   }
 }

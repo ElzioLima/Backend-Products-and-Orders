@@ -12,7 +12,7 @@ export class UserLoginController extends Controller {
     super()
   }
 
-  async perform ({ email, password }: HttpRequest): Promise<HttpResponse<Model>> {
+  override async perform ({ email, password }: HttpRequest): Promise<HttpResponse<Model>> {
     try {
       const accessToken = await this.userAuthentication({ email, password })
       return ok(accessToken)

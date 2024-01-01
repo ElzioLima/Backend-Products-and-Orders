@@ -1,58 +1,75 @@
-import { ConnectionNotFoundError, TransactionNotFoundError } from '@/infra/repos/postgres/helpers'
-import { DbTransaction } from '@/application/contracts'
-
-import { createConnection, getConnection, getConnectionManager, ObjectType, QueryRunner, Repository, Connection, getRepository, ObjectLiteral, Entity } from 'typeorm'
+import { DataSource, QueryRunner, Repository, ObjectType, ObjectLiteral } from 'typeorm';
+import { ConnectionNotFoundError, TransactionNotFoundError } from '@/infra/repos/postgres/helpers';
+import { DbTransaction } from '@/application/contracts';
+import { AppDataSource } from '@/infra/repos/postgres/helpers/data-source'
 
 export class PgConnection implements DbTransaction {
-  private static instance?: PgConnection
-  private query?: QueryRunner
-  private connection?: Connection
+  private static instance?: PgConnection;
+  private query?: QueryRunner;
+  private static dataSource: DataSource;
 
-  private constructor () {}
+  private constructor() {}
 
-  static getInstance (): PgConnection {
-    if (PgConnection.instance === undefined) PgConnection.instance = new PgConnection()
-    return PgConnection.instance
+  static async initialize(): Promise<void> {
+    PgConnection.dataSource = AppDataSource;
+    PgConnection.instance = new PgConnection();
   }
 
-  async connect (): Promise<void> {
-    this.connection = getConnectionManager().has('default')
-      ? getConnection()
-      : await createConnection()
+  static getInstance(): PgConnection {
+    if (!this.instance) {
+      if (!this.dataSource) {
+        throw new Error('DataSource is not initialized. Call initialize() first.');
+      }
+      this.instance = new PgConnection();
+    }
+    return this.instance;
   }
 
-  async disconnect (): Promise<void> {
-    if (this.connection === undefined) throw new ConnectionNotFoundError()
-    await getConnection().close()
-    this.query = undefined
-    this.connection = undefined
+  async connect(): Promise<void> {
+    if (!PgConnection.dataSource.isInitialized) {
+      await PgConnection.dataSource.initialize();
+    }
   }
 
-  async openTransaction (): Promise<void> {
-    if (this.connection === undefined) throw new ConnectionNotFoundError()
-    this.query = this.connection.createQueryRunner()
-    await this.query.startTransaction()
+  async disconnect(): Promise<void> {
+    if (!PgConnection.dataSource.isInitialized) {
+      throw new ConnectionNotFoundError();
+    }
+    await PgConnection.dataSource.destroy();
+    this.query = undefined;
   }
 
-  async closeTransaction (): Promise<void> {
-    if (this.query === undefined) throw new TransactionNotFoundError()
-    await this.query.release()
-    this.query = undefined
+  async openTransaction(): Promise<void> {
+    this.query = PgConnection.dataSource.createQueryRunner();
+    await this.query.startTransaction();
   }
 
-  async commit (): Promise<void> {
-    if (this.query === undefined) throw new TransactionNotFoundError()
-    await this.query.commitTransaction()
+  async closeTransaction(): Promise<void> {
+    if (!this.query) {
+      throw new TransactionNotFoundError();
+    }
+    await this.query.release();
+    this.query = undefined;
   }
 
-  async rollback (): Promise<void> {
-    if (this.query === undefined) throw new TransactionNotFoundError()
-    await this.query.rollbackTransaction()
+  async commit(): Promise<void> {
+    if (!this.query) {
+      throw new TransactionNotFoundError();
+    }
+    await this.query.commitTransaction();
   }
 
-  getRepository<Entity extends ObjectLiteral> (entity: ObjectType<Entity>): Repository<Entity> {
-    if (this.connection === undefined) throw new ConnectionNotFoundError()
-    if (this.query !== undefined) return this.query.manager.getRepository(entity)
-    return getRepository(entity)
+  async rollback(): Promise<void> {
+    if (!this.query) {
+      throw new TransactionNotFoundError();
+    }
+    await this.query.rollbackTransaction();
+  }
+
+  getRepository<Entity extends ObjectLiteral>(entity: ObjectType<Entity>): Repository<Entity> {
+    if (!PgConnection.dataSource.isInitialized) {
+      throw new ConnectionNotFoundError();
+    }
+    return PgConnection.dataSource.getRepository(entity);
   }
 }

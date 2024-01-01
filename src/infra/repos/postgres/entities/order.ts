@@ -4,7 +4,7 @@ import { PgProduct } from './product'
 @Entity({ name: 'orders' })
 export class PgOrder {
   @PrimaryGeneratedColumn('uuid')
-  id!: number
+  id!: string
 
   @Column({ name: "total_price", nullable: true })
   totalPrice!: number

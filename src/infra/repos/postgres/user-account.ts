@@ -5,8 +5,8 @@ import { LoadAccountByEmailRepository, UpdateAccessTokenRepository, CreateUser }
 export class PgUserAccountRepository extends PgRepository implements LoadAccountByEmailRepository, UpdateAccessTokenRepository, CreateUser {
   async loadByEmail ({ email }: LoadAccountByEmailRepository.Input): Promise<LoadAccountByEmailRepository.Output> {
     const pgUserRepo = this.getRepository(PgUser)
-    const pgUser = await pgUserRepo.findOne({ email })
-    if (pgUser !== undefined) {
+    const pgUser = await pgUserRepo.findOneBy({ email })
+    if (pgUser !== null) {
       return {
         id: pgUser.id,
         email: pgUser.email ?? undefined,

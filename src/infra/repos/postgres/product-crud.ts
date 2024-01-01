@@ -12,7 +12,7 @@ export class PgProductRepository extends PgRepository implements DBCreateProduct
   async create ({ name, price, category }: DBCreateProduct.Input): Promise<DBCreateProduct.Output> {
     const pgProductRepo = this.getRepository(PgProduct)
     const pgProduct = await pgProductRepo.save({ name, price, category })
-    if (pgProduct !== undefined) {
+    if (pgProduct !== null) {
       return {
         id: pgProduct.id ?? undefined,
         name: pgProduct.name ?? undefined,
@@ -26,8 +26,8 @@ export class PgProductRepository extends PgRepository implements DBCreateProduct
     const pgProductRepo = this.getRepository(PgProduct)
     const pgProductUpdated = await pgProductRepo.update(id, { name, price, category })
     if (pgProductUpdated !== undefined) {
-      const pgProduct = await pgProductRepo.findOne(id)
-      if (pgProduct !== undefined) {
+      const pgProduct = await pgProductRepo.findOneBy({id})
+      if (pgProduct !== null) {
         return {
           id: pgProduct.id ?? undefined,
           name: pgProduct.name ?? undefined,
@@ -53,8 +53,8 @@ export class PgProductRepository extends PgRepository implements DBCreateProduct
 
   async listOne ({ id }: DBListOneProduct.Input): Promise<DBListOneProduct.Output> {
     const pgProductRepo = this.getRepository(PgProduct)
-    const pgProduct = await pgProductRepo.findOne(id)
-    if (pgProduct !== undefined) {
+    const pgProduct = await pgProductRepo.findOneBy({id})
+    if (pgProduct !== null) {
       return {
         id: pgProduct.id ?? undefined,
         name: pgProduct.name ?? undefined,
@@ -66,8 +66,8 @@ export class PgProductRepository extends PgRepository implements DBCreateProduct
 
   async delete ({ id }: DBListOneProduct.Input): Promise<DBListOneProduct.Output> {
     const pgProductRepo = this.getRepository(PgProduct)
-    const pgProduct = await pgProductRepo.findOne(id)
-    if (pgProduct !== undefined) {
+    const pgProduct = await pgProductRepo.findOneBy({id})
+    if (pgProduct !== null) {
       const pgProductDeleted = await pgProductRepo.softDelete(id)
       return {
         id: pgProduct.id ?? undefined,

@@ -5,7 +5,7 @@ export interface DBCreateOrder {
 export namespace DBCreateOrder {
   export type Input = {
     products: Array<{
-      id: number
+      id: string
       name?: string
       price?: number
       category?: string
@@ -13,10 +13,10 @@ export namespace DBCreateOrder {
     }>
   }
   export type Output = undefined | {
-    id: number
+    id: string
     totalPrice: number
     products: Array<{
-      id: number
+      id: string
       name?: string
       price?: number
       category?: string
@@ -31,9 +31,9 @@ export interface DBUpdateOrder {
 
 export namespace DBUpdateOrder {
   export type Input = {
-    id: number
+    id: string
     products: Array<{
-      id: number
+      id: string
       name?: string
       price?: number
       category?: string
@@ -41,10 +41,10 @@ export namespace DBUpdateOrder {
     }>
   }
   export type Output = undefined | {
-    id: number
+    id: string
     totalPrice: number
     products: Array<{
-      id: number
+      id: string
       name?: string
       price?: number
       category?: string
@@ -59,10 +59,10 @@ export interface DBListOrder {
 
 export namespace DBListOrder {
   export type Output = undefined | Array<{
-    id: number
+    id: string
     totalPrice: number
     products: Array<{
-      id: number
+      id: string
       name?: string
       price?: number
       category?: string
@@ -77,13 +77,13 @@ export interface DBListOneOrder {
 
 export namespace DBListOneOrder {
   export type Input = {
-    id: number
+    id: string
   }
   export type Output = undefined | {
-    id: number
+    id: string
     totalPrice: number
     products: Array<{
-      id: number
+      id: string
       name?: string
       price?: number
       category?: string
@@ -98,13 +98,13 @@ export interface DBDeleteOrder {
 
 export namespace DBDeleteOrder {
   export type Input = {
-    id: number
+    id: string
   }
   export type Output = undefined | {
-    id: number
+    id: string
     totalPrice: number
     products: Array<{
-      id: number
+      id: string
       name?: string
       price?: number
       category?: string

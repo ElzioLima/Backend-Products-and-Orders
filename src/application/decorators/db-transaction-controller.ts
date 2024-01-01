@@ -2,7 +2,7 @@ import { DbTransaction } from '@/application/contracts'
 import { Controller } from '@/application/controllers'
 import { HttpResponse } from '@/application/helpers'
 
-export class DbTransactionController extends Controller {
+export abstract class DbTransactionController extends Controller {
   constructor (
     private readonly decoratee: Controller,
     private readonly db: DbTransaction
@@ -10,10 +10,10 @@ export class DbTransactionController extends Controller {
     super()
   }
 
-  async perform (httpRequest: any): Promise<HttpResponse> {
+  override async handle (httpRequest: any): Promise<HttpResponse> {
     await this.db.openTransaction()
     try {
-      const httpResponse = await this.decoratee.perform(httpRequest)
+      const httpResponse = await this.decoratee.handle(httpRequest)
       await this.db.commit()
       return httpResponse
     } catch (error) {
@@ -23,4 +23,5 @@ export class DbTransactionController extends Controller {
       await this.db.closeTransaction()
     }
   }
+
 }

@@ -3,7 +3,7 @@ import { HttpResponse, ok } from '@/application/helpers'
 import { ValidationBuilder as Builder, Validator } from '@/application/validation'
 import { ListProduct } from '@/domain/use-cases'
 
-type Model = undefined | Array<{ id: number, name: string, price: number, category: string }>
+type Model = undefined | Array<{ id: string, name: string, price: number, category: string }>
 
 export class ListProductController extends Controller {
   constructor (private readonly createProduct: ListProduct) {

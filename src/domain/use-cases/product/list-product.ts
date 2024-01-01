@@ -2,7 +2,7 @@ import { DBListProduct } from '@/domain/contracts/repos'
 import { Product } from '@/domain/entities'
 
 type Setup = (productRepo: DBListProduct) => ListProduct
-type Output = undefined | Array<{ id: number, name: string, price: number, category: string }>
+type Output = undefined | Array<{ id: string, name: string, price: number, category: string }>
 export type ListProduct = () => Promise<Output>
 
 export const setupListProduct: Setup = (productRepo) => async () => {

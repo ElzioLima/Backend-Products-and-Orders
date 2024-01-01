@@ -43,7 +43,6 @@ export class JoiValidator implements EmailValidator, StringValidator, NumberVali
       field: Joi.array().items(Joi.number())
     })
     const isValid = schema.validate({ field })
-    console.log(JSON.stringify(isValid))
     if (isValid.error != null) {
       return false
     }

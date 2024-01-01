@@ -5,7 +5,7 @@ import { CreateOrder } from '@/domain/use-cases'
 
 type HttpRequest = {
   products: Array<{
-    id: number
+    id: string
     name?: string
     price?: number
     category?: string
@@ -13,10 +13,10 @@ type HttpRequest = {
   }>
 }
 type Model = undefined | {
-  id: number
+  id: string
   totalPrice: number
   products: Array<{
-    id: number
+    id: string
     name?: string
     price?: number
     category?: string

@@ -25,7 +25,7 @@ export class PgOrderRepository extends PgRepository implements DBCreateOrder, DB
 
   async update ({ id, products }: DBUpdateOrder.Input): Promise<DBUpdateOrder.Output> {
     const pgOrderRepo = this.getRepository(PgOrder)
-    const pgOrderSelected = await pgOrderRepo.findOne(id)
+    const pgOrderSelected = await pgOrderRepo.findOneBy({id})
     if (pgOrderSelected != null) {
       const pgProductRepo = this.getRepository(PgProduct)
       const { totalPrice } = await pgProductRepo.createQueryBuilder('products').select('SUM(price)', 'totalPrice').whereInIds(products).getRawOne()
@@ -41,8 +41,8 @@ export class PgOrderRepository extends PgRepository implements DBCreateOrder, DB
         .addAndRemove(pgOrderCreated.products, pgOrderSelected.products)
       const pgOrderUpdated = await pgOrderRepo.save(pgOrder)
       if (pgOrderUpdated !== undefined) {
-        const pgOrder = await pgOrderRepo.findOne(id)
-        if (pgOrder !== undefined) {
+        const pgOrder = await pgOrderRepo.findOneBy({id})
+        if (pgOrder !== null) {
           return {
             id: pgOrder.id ?? undefined,
             totalPrice: pgOrder.totalPrice ?? undefined,
@@ -68,8 +68,8 @@ export class PgOrderRepository extends PgRepository implements DBCreateOrder, DB
 
   async listOne ({ id }: DBListOneOrder.Input): Promise<DBListOneOrder.Output> {
     const pgOrderRepo = this.getRepository(PgOrder)
-    const pgOrder = await pgOrderRepo.findOne(id)
-    if (pgOrder !== undefined) {
+    const pgOrder = await pgOrderRepo.findOneBy({id})
+    if (pgOrder !== null) {
       return {
         id: pgOrder.id ?? undefined,
         totalPrice: pgOrder.totalPrice ?? undefined,
@@ -80,8 +80,8 @@ export class PgOrderRepository extends PgRepository implements DBCreateOrder, DB
 
   async delete ({ id }: DBListOneOrder.Input): Promise<DBListOneOrder.Output> {
     const pgOrderRepo = this.getRepository(PgOrder)
-    const pgOrder = await pgOrderRepo.findOne(id)
-    if (pgOrder !== undefined) {
+    const pgOrder = await pgOrderRepo.findOneBy({id})
+    if (pgOrder !== null) {
       await pgOrderRepo.softDelete(id)
       return {
         id: pgOrder.id ?? undefined,

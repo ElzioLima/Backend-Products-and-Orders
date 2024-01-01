@@ -8,7 +8,7 @@ export namespace LoadAccountByEmailRepository {
   }
 
   export type Output = {
-    id: number
+    id: string
     email: string
     password: string
     token?: string | undefined
@@ -21,7 +21,7 @@ export interface UpdateAccessTokenRepository {
 
 export namespace UpdateAccessTokenRepository {
   export type Input = {
-    id: number
+    id: string
     token: string
   }
 
@@ -39,7 +39,7 @@ export namespace CreateUser {
   }
 
   export type Output = {
-    id: number
+    id: string
     email: string
     password: string
     token?: string | undefined

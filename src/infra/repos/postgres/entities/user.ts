@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column, DeleteDateColumn } from 'typeor
 @Entity({ name: 'users' })
 export class PgUser {
   @PrimaryGeneratedColumn()
-  id!: number
+  id!: string
 
   @Column()
   email!: string

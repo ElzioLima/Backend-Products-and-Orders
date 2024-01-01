@@ -4,7 +4,7 @@ import { ValidationBuilder as Builder, Validator } from '@/application/validatio
 import { CreateProduct } from '@/domain/use-cases'
 
 type HttpRequest = { name: string, price: number, category: string }
-type Model = undefined | { id: number, name: string, price: number, category: string }
+type Model = undefined | { id: string, name: string, price: number, category: string }
 
 export class CreateProductController extends Controller {
   constructor (private readonly createProduct: CreateProduct) {

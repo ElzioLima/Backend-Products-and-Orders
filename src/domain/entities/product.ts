@@ -1,7 +1,7 @@
-type ProductData = { id: number, name: string, price: number, category: string }
+type ProductData = { id: string, name: string, price: number, category: string }
 
 export class Product {
-  id: number
+  id: string
   name: string
   price: number
   category: string

@@ -3,8 +3,8 @@ import { HttpResponse, ok } from '@/application/helpers'
 import { ValidationBuilder as Builder, Validator } from '@/application/validation'
 import { UpdateProduct } from '@/domain/use-cases'
 
-type HttpRequest = { id: number, name: string, price: number, category: string }
-type Model = undefined | { id: number, name: string, price: number, category: string }
+type HttpRequest = { id: string, name: string, price: number, category: string }
+type Model = undefined | { id: string, name: string, price: number, category: string }
 
 export class UpdateProductController extends Controller {
   constructor (private readonly createProduct: UpdateProduct) {
